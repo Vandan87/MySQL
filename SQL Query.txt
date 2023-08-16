@@ -1,18 +1,22 @@
-/* Create queries for the below points */
+ -- Create queries for the below points
 
-/* Create employee database */
+ -- Create employee database
 CREATE DATABASE employee;
 
-/* Create 4 tables (hobby, employee, employee_salary, employee_hobby). */
+ -- For use this database from multiple database we can use below query i.e,
+	USE employee;
+	SELECT * FROM employee;
 
-1. hobby: id, name
+ -- Create 4 tables (hobby, employee, employee_salary, employee_hobby).
+
+ -- 1. hobby: id, name
 	CREATE TABLE hobby (
 	  id INT NOT NULL AUTO_INCREMENT,
 	  name VARCHAR(20) NOT NULL,
 	  PRIMARY KEY (id)
 	);
 
-2. employee: id, first_name, last_name, age, mobile_number, address
+ -- 2. employee: id, first_name, last_name, age, mobile_number, address
 	CREATE TABLE employee (
 	id INT NOT NULL AUTO_INCREMENT,
 	first_name VARCHAR(20) NOT NULL,
@@ -23,30 +27,30 @@ CREATE DATABASE employee;
 	PRIMARY KEY(id)
 	);
 
-3. employee_salary: id, foreign key of employee, salary, date
+ -- 3. employee_salary: id, foreign key of employee, salary, date
 	CREATE TABLE employee_salary (
 	  id INT NOT NULL AUTO_INCREMENT,
-	  employee_id INT NOT NULL,
+	  fk_employee_id INT NOT NULL,
 	  salary DECIMAL(10,2) NOT NULL,
 	  date DATE DEFAULT NULL,
 	  PRIMARY KEY (id),
-	  KEY employee_id (employee_id),
-	  CONSTRAINT employee_salary_ibfk_1 FOREIGN KEY (employee_id) REFERENCES employee (id)
+	  KEY fk_employee_id (fk_employee_id),
+	  CONSTRAINT employee_salary_ibfk_1 FOREIGN KEY (fk_employee_id) REFERENCES employee (id)
 	);
 
-4. employee_hobby: id, foreign key of the employee, foreign key of hobby
+-- 4. employee_hobby: id, foreign key of the employee, foreign key of hobby
 	CREATE TABLE employee_hobby (
 	  id INT NOT NULL AUTO_INCREMENT,
-	  employee_id INT DEFAULT NULL,
-	  hobby_id INT DEFAULT NULL,
+	  fk_employee_id INT DEFAULT NULL,
+	  fk_hobby_id INT DEFAULT NULL,
 	  PRIMARY KEY (id),
-	  KEY employee_id (employee_id),
-	  KEY hobby_id (hobby_id),
-	  CONSTRAINT employee_hobby_ibfk_1 FOREIGN KEY (employee_id) REFERENCES employee (id),
-	  CONSTRAINT employee_hobby_ibfk_2 FOREIGN KEY (hobby_id) REFERENCES hobby (id)
-	)
+	  KEY fk_employee_id (fk_employee_id),
+	  KEY fk_hobby_id (fk_hobby_id),
+	  CONSTRAINT employee_hobby_ibfk_1 FOREIGN KEY (fk_employee_id) REFERENCES employee (id),
+	  CONSTRAINT employee_hobby_ibfk_2 FOREIGN KEY (fk_hobby_id) REFERENCES hobby (id)
+	);
 
-// Insert multiple data in hobby table
+ -- Insert multiple data in hobby table
 	INSERT INTO hobby (id,name) VALUES
 	(1,'Dancing'),
 	(2,'Playing'),
@@ -54,7 +58,7 @@ CREATE DATABASE employee;
 	(4,'Tracking'),
 	(5,'Wathing Movie');
 
-// Insert multiple data in employee table
+ -- Insert multiple data in employee table
 	INSERT INTO employee (id,first_name,last_name,age,mobile_number,address) VALUES
 	(1,'Vandan','Darji',23,'8758650550','New Naroda'),
 	(2,'Aryan','Dalwadi',24,'6351226188','New Ranip'),
@@ -62,111 +66,114 @@ CREATE DATABASE employee;
 	(4,'Sahil','Javiya',22,'9825721694','Chandlodiya'),
 	(5,'Aakash','Chudasama',23,'7984843057','Nikol');
 
-// Insert multiple data in employee_salary table
-	INSERT INTO employee_salary (id,employee_id,salary,DATE) VALUES
+ -- Insert multiple data in employee_salary table
+	INSERT INTO employee_salary (id,fk_employee_id,salary,DATE) VALUES
 	(1,2,'2000','2023-08-12'),
 	(2,3,'2000','2023-08-12'),
 	(3,1,'4000','2023-08-13'),
 	(4,5,'4656','2023-08-15'),
 	(5,4,'5656','2023-08-14');
 
-// Insert multiple data in employee_hobby table
-	INSERT INTO employee_hobby (id,employee_id,hobby_id) VALUES
+ -- Insert multiple data in employee_hobby table
+	INSERT INTO employee_hobby (id,fk_employee_id,fk_hobby_id) VALUES
 	(1,2,1),
 	(2,3,1),
 	(3,1,5),
 	(4,5,3),
 	(5,4,4);
 
-// Update data of hobby table
+ -- Update data of hobby table
 	UPDATE hobby SET NAME = 'Reading' WHERE id = 1;
 	UPDATE hobby SET NAME = 'Swimming' WHERE id = 2;
 	UPDATE hobby SET NAME = 'Playing' WHERE id = 3;
 	UPDATE hobby SET NAME = 'Coading' WHERE id = 4;
 	UPDATE hobby SET NAME = 'Shopping' WHERE id = 5;
 
-// Update data of employee table
-	UPDATE employee SET first_name = 'Parth',last_name = 'Mori' WHERE id = 1,
-	UPDATE employee SET first_name = 'Joy',last_name = 'Parikh' WHERE id = 2,
-	UPDATE employee SET first_name = 'Malav',last_name = 'Soni' WHERE id = 3,
-	UPDATE employee SET first_name = 'Kasim',last_name = 'Khira' WHERE id = 4,
+ -- Update data of employee table
+	UPDATE employee SET first_name = 'Parth',last_name = 'Mori' WHERE id = 1;
+	UPDATE employee SET first_name = 'Joy',last_name = 'Parikh' WHERE id = 2;
+	UPDATE employee SET first_name = 'Malav',last_name = 'Soni' WHERE id = 3;
+	UPDATE employee SET first_name = 'Kasim',last_name = 'Khira' WHERE id = 4;
 	UPDATE employee SET first_name = 'Shivarsh',last_name = 'Vaghela' WHERE id = 5;
 
-// Update data of employee_salary table
-	UPDATE employee_salary SET employee_id = 4 , salary = 10000 WHERE id = 1; 
-	UPDATE employee_salary SET employee_id = 5 , salary = 12000 WHERE id = 2; 
-	UPDATE employee_salary SET employee_id = 2 , salary = 15000 WHERE id = 3; 
-	UPDATE employee_salary SET employee_id = 1 , salary = 14000 WHERE id = 4; 
-	UPDATE employee_salary SET employee_id = 3 , salary = 13000 WHERE id = 5; 
+ -- Update data of employee_salary table
+	UPDATE employee_salary SET fk_employee_id = 4 , salary = 10000 WHERE id = 1; 
+	UPDATE employee_salary SET fk_employee_id = 5 , salary = 12000 WHERE id = 2; 
+	UPDATE employee_salary SET fk_employee_id = 2 , salary = 15000 WHERE id = 3; 
+	UPDATE employee_salary SET fk_employee_id = 1 , salary = 14000 WHERE id = 4; 
+	UPDATE employee_salary SET fk_employee_id = 3 , salary = 13000 WHERE id = 5; 
 
-// Update data of employee_hobby table.
-	UPDATE employee_hobby SET employee_id = 4 , hobby_id = 2 WHERE id = 1;
-	UPDATE employee_hobby SET employee_id = 5 , hobby_id = 4 WHERE id = 2;
-	UPDATE employee_hobby SET employee_id = 2 , hobby_id = 1 WHERE id = 3;
-	UPDATE employee_hobby SET employee_id = 1 , hobby_id = 3 WHERE id = 4;
-	UPDATE employee_hobby SET employee_id = 3 , hobby_id = 5 WHERE id = 5;
+ -- Update data of employee_hobby table.
+	UPDATE employee_hobby SET fk_employee_id = 4 , fk_hobby_id = 2 WHERE id = 1;
+	UPDATE employee_hobby SET fk_employee_id = 5 , fk_hobby_id = 4 WHERE id = 2;
+	UPDATE employee_hobby SET fk_employee_id = 2 , fk_hobby_id = 1 WHERE id = 3;
+	UPDATE employee_hobby SET fk_employee_id = 1 , fk_hobby_id = 3 WHERE id = 4;
+	UPDATE employee_hobby SET fk_employee_id = 3 , fk_hobby_id = 5 WHERE id = 5;
 
-// Delete 2 records of employee_hobby table.
+ -- Delete 2 records of employee_hobby table.
 	DELETE FROM employee_hobby WHERE id = 4;
 	DELETE FROM employee_hobby WHERE id = 5;
 
-// Delete 2 records of employee_salary table.
+ -- Delete 2 records of employee_salary table.
 	DELETE FROM employee_salary WHERE id = 5;
 	DELETE FROM employee_salary WHERE id = 4;
 
-// Delete 2 records of employee table.
+ -- Delete 2 records of employee table.
 	DELETE FROM employee WHERE id = 3;
 	DELETE FROM employee WHERE id = 1;
 
-// Delete 2 records of hobby table.
+ -- Delete 2 records of hobby table.
 	DELETE FROM hobby WHERE id = 3;
 	DELETE FROM hobby WHERE id = 5;
+	
+ -- For truncate table first of all you have to DISABLE foreign keys 
+	SET FOREIGN_KEY_CHECKS = 0;
 
-// Truncate all tables.
+ -- Truncate all tables.
 	TRUNCATE TABLE employee_hobby;
 	TRUNCATE TABLE employee_salary;
 	TRUNCATE TABLE employee;
 	TRUNCATE TABLE hobby;
+	
+ -- After Truncate table you have to enter data again and execute below queries.	
 
-/* Create a separate select queries to get a hobby, employee, employee_salary, employee_hobby. */
+ -- Create a separate select queries to get a hobby, employee, employee_salary, employee_hobby. */
 	SELECT * FROM hobby;
 	SELECT * FROM employee;
 	SELECT * FROM employee_salary;
 	SELECT * FROM employee_hobby;
 
-/* Create a select single query to get all employee name, all hobby_name in single column. */
+ -- Create a select single query to get all employee name, all hobby_name in single column. */
 
 	SELECT CONCAT(first_name,' ',last_name) AS "Employee Names" 
 	FROM employee 
 	UNION ALL 
 	SELECT NAME AS "hobby_name" FROM hobby; 
 
-/* Create a select query to get employee name, his/her employee_salary */
+ -- Create a select query to get employee name, his/her employee_salary */
 
 	SELECT CONCAT(e.first_name,' ',e.last_name) 
 	AS Employees_Name , s.salary AS Employee_Salary
 	FROM employee e
-	JOIN employee_salary s ON e.id = s.employee_id;
+	JOIN employee_salary s ON e.id = s.fk_employee_id;
 
-/* Create a select query to get employee name, total salary of employee, hobby
-	name(comma-separated - you need to use subquery for hobby name). */
+ -- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - you need to use subquery for hobby name).
 	
 	SELECT
-		CONCAT (e.first_name,' ',e.last_name) AS Employee_name,
+		CONCAT (e.first_name,' ',e.last_name) AS Employee_name ORDER BY ASC,
 		es.Total_salary,
 		(
-			SELECT CONCAT(h.name)
+			SELECT GROUP_CONCAT(DISTINCT h.name)
 			FROM hobby h
-			JOIN employee_hobby eh ON h.id = eh.hobby_id
-			WHERE eh.employee_id = e.id
+			LEFT JOIN employee_hobby eh ON h.id = eh.fk_hobby_id			
+			WHERE eh.fk_employee_id = e.id
 		) AS Hobby_names
 	FROM employee e
-	JOIN (
+	LEFT JOIN (
 		SELECT
-			es.employee_id,
-			SUM(es.salary) AS total_salary
-		FROM employee_salary es
-		GROUP BY es.employee_id
-	) es ON e.id = es.employee_id;
+			fk_employee_id,
+			SUM(salary) AS total_salary
+		FROM employee_salary 
+		GROUP BY fk_employee_id
+	) es ON e.id = es.fk_employee_id;
 	
-
