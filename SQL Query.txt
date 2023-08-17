@@ -137,20 +137,20 @@ CREATE DATABASE employee;
 	
  -- After Truncate table you have to enter data again and execute below queries.	
 
- -- Create a separate select queries to get a hobby, employee, employee_salary, employee_hobby. */
+ -- Create a separate select queries to get a hobby, employee, employee_salary, employee_hobby. 
 	SELECT * FROM hobby;
 	SELECT * FROM employee;
 	SELECT * FROM employee_salary;
 	SELECT * FROM employee_hobby;
 
- -- Create a select single query to get all employee name, all hobby_name in single column. */
+ -- Create a select single query to get all employee name, all hobby_name in single column. 
 
 	SELECT CONCAT(first_name,' ',last_name) AS "Employee Names" 
 	FROM employee 
 	UNION ALL 
 	SELECT NAME AS "hobby_name" FROM hobby; 
 
- -- Create a select query to get employee name, his/her employee_salary */
+ -- Create a select query to get employee name, his/her employee_salary 
 
 	SELECT CONCAT(e.first_name,' ',e.last_name) 
 	AS Employees_Name , s.salary AS Employee_Salary
